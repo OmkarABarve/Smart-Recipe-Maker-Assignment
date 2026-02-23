@@ -1,5 +1,20 @@
+"use client";
+
 import { Recipe } from "@/types";
 import Link from "next/link";
+import { useState, useEffect, useCallback } from "react";
+import ServingAdjuster from "./ServingAdjuster";
+import NutritionLabel from "./NutritionLabel";
+import RatingStars from "./RatingStars";
+import SaveButton from "./SaveButton";
+import { getRating, setRating as persistRating } from "@/lib/favorites";
+import { isSaved, toggleSaved } from "@/lib/favorites";
+import { scaleAmount } from "@/lib/scale";
+import {
+  classifyIngredient,
+  CATEGORY_COLORS,
+  CATEGORY_LABELS,
+} from "@/lib/classify";
 
 interface RecipeDetailProps {
   recipe: Recipe;
@@ -7,6 +22,30 @@ interface RecipeDetailProps {
 
 export default function RecipeDetail({ recipe }: RecipeDetailProps) {
   const totalTime = recipe.prepTime + recipe.cookTime;
+  const [servings, setServings] = useState(recipe.servings);
+  const [rating, setRating] = useState(0);
+  const [saved, setSaved] = useState(false);
+
+  // Hydrate client-only state after mount
+  useEffect(() => {
+    setRating(getRating(recipe.id));
+    setSaved(isSaved(recipe.id));
+  }, [recipe.id]);
+
+  const handleRate = useCallback(
+    (r: number) => {
+      setRating(r);
+      persistRating(recipe.id, r);
+    },
+    [recipe.id]
+  );
+
+  const handleToggleSave = useCallback(() => {
+    const nowSaved = toggleSaved(recipe.id);
+    setSaved(nowSaved);
+  }, [recipe.id]);
+
+  const scale = servings / recipe.servings;
 
   return (
     <article className="max-w-3xl mx-auto">
@@ -15,27 +54,21 @@ export default function RecipeDetail({ recipe }: RecipeDetailProps) {
         href="/"
         className="inline-flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors mb-6"
       >
-        <svg
-          className="w-4 h-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 19l-7-7m0 0l7-7m-7 7h18"
-          />
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
         </svg>
         Back to recipes
       </Link>
 
       {/* Title & meta */}
       <header className="mb-8">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-          {recipe.title}
-        </h1>
+        <div className="flex items-start justify-between gap-4 mb-3">
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
+            {recipe.title}
+          </h1>
+          <SaveButton saved={saved} onToggle={handleToggleSave} />
+        </div>
+
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">
           {recipe.description}
         </p>
@@ -59,14 +92,6 @@ export default function RecipeDetail({ recipe }: RecipeDetailProps) {
               · Cook <strong className="text-gray-900 dark:text-white">{recipe.cookTime}</strong> min
             </span>
           </div>
-          <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-            </svg>
-            <span>
-              <strong className="text-gray-900 dark:text-white">{recipe.servings}</strong> servings
-            </span>
-          </div>
           <span
             className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${
               recipe.difficulty === "easy"
@@ -83,8 +108,22 @@ export default function RecipeDetail({ recipe }: RecipeDetailProps) {
           </span>
         </div>
 
+        {/* Dietary tags */}
+        {recipe.dietaryTags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3">
+            {recipe.dietaryTags.map((tag) => (
+              <span
+                key={tag}
+                className="px-2.5 py-1 bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300 rounded-full text-xs font-medium"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mt-4">
+        <div className="flex flex-wrap gap-2 mt-3">
           {recipe.tags.map((tag) => (
             <span
               key={tag}
@@ -94,7 +133,38 @@ export default function RecipeDetail({ recipe }: RecipeDetailProps) {
             </span>
           ))}
         </div>
+
+        {/* Rating */}
+        <div className="mt-4 flex items-center gap-4">
+          <span className="text-sm text-gray-600 dark:text-gray-400">Your rating:</span>
+          <RatingStars rating={rating} onRate={handleRate} size="lg" />
+        </div>
       </header>
+
+      {/* Nutrition */}
+      <section className="mb-8 p-4 bg-gray-50 dark:bg-gray-900/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+        <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
+          <svg className="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+          Nutritional Information (per serving)
+        </h2>
+        <NutritionLabel
+          nutrition={recipe.nutrition}
+          servings={recipe.servings}
+          adjustedServings={servings}
+          layout="grid"
+        />
+      </section>
+
+      {/* Serving adjuster */}
+      <section className="mb-6">
+        <ServingAdjuster
+          baseServings={recipe.servings}
+          servings={servings}
+          onChange={setServings}
+        />
+      </section>
 
       {/* Two-column: Ingredients & Steps */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -105,29 +175,43 @@ export default function RecipeDetail({ recipe }: RecipeDetailProps) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
             Ingredients
+            {scale !== 1 && (
+              <span className="text-xs font-normal text-brand-500 ml-1">
+                (×{Math.round(scale * 10) / 10})
+              </span>
+            )}
           </h2>
           <ul className="space-y-2.5">
-            {recipe.ingredients.map((ing, idx) => (
-              <li
-                key={idx}
-                className={`flex items-start gap-2 text-sm ${
-                  ing.optional
-                    ? "text-gray-400 dark:text-gray-500"
-                    : "text-gray-700 dark:text-gray-300"
-                }`}
-              >
-                <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-brand-400 dark:bg-brand-500 flex-shrink-0" />
-                <span>
-                  <span className="font-medium">{ing.amount}</span>{" "}
-                  {ing.name}
-                  {ing.optional && (
-                    <span className="ml-1 text-xs text-gray-400 dark:text-gray-500 italic">
-                      (optional)
+            {recipe.ingredients.map((ing, idx) => {
+              const category = classifyIngredient(ing.name);
+              return (
+                <li
+                  key={idx}
+                  className={`flex items-start gap-2 text-sm ${
+                    ing.optional
+                      ? "text-gray-400 dark:text-gray-500"
+                      : "text-gray-700 dark:text-gray-300"
+                  }`}
+                >
+                  <span className="mt-0.5 w-1.5 h-1.5 rounded-full bg-brand-400 dark:bg-brand-500 flex-shrink-0" />
+                  <span className="flex-1">
+                    <span className="font-medium">{scaleAmount(ing.amount, scale)}</span>{" "}
+                    {ing.name}
+                    <span
+                      className={`ml-1.5 inline-block px-1.5 py-0.5 rounded text-[10px] font-medium leading-none align-middle ${CATEGORY_COLORS[category]}`}
+                      title={CATEGORY_LABELS[category]}
+                    >
+                      {CATEGORY_LABELS[category]}
                     </span>
-                  )}
-                </span>
-              </li>
-            ))}
+                    {ing.optional && (
+                      <span className="ml-1 text-xs text-gray-400 dark:text-gray-500 italic">
+                        (optional)
+                      </span>
+                    )}
+                  </span>
+                </li>
+              );
+            })}
           </ul>
         </div>
 

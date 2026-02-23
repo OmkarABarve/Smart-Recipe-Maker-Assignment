@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 import RecipeDetail from "@/components/RecipeDetail";
 
 interface RecipePageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // Generate static paths for all recipes
@@ -17,7 +17,8 @@ export function generateStaticParams() {
 
 // Generate metadata for each recipe page
 export async function generateMetadata({ params }: RecipePageProps) {
-  const recipe = getRecipeById(params.id);
+  const { id } = await params;
+  const recipe = getRecipeById(id);
   if (!recipe) {
     return { title: "Recipe Not Found" };
   }
@@ -27,8 +28,9 @@ export async function generateMetadata({ params }: RecipePageProps) {
   };
 }
 
-export default function RecipePage({ params }: RecipePageProps) {
-  const recipe = getRecipeById(params.id);
+export default async function RecipePage({ params }: RecipePageProps) {
+  const { id } = await params;
+  const recipe = getRecipeById(id);
 
   if (!recipe) {
     notFound();

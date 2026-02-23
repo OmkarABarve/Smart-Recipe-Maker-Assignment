@@ -15,6 +15,23 @@ export type IngredientCategory =
   | "condiment"
   | "other";
 
+export interface NutritionInfo {
+  calories: number;   // kcal per serving
+  protein: number;    // grams per serving
+  carbs: number;      // grams per serving
+  fat: number;        // grams per serving
+  fiber: number;      // grams per serving
+}
+
+export type DietaryTag =
+  | "vegetarian"
+  | "vegan"
+  | "gluten-free"
+  | "dairy-free"
+  | "nut-free"
+  | "low-carb"
+  | "high-protein";
+
 export interface Recipe {
   id: string;
   title: string;
@@ -27,6 +44,8 @@ export interface Recipe {
   difficulty: "easy" | "medium" | "hard";
   cuisine: string;
   tags: string[];
+  dietaryTags: DietaryTag[];
+  nutrition: NutritionInfo;
   image?: string;
 }
 
@@ -50,4 +69,33 @@ export interface Substitution {
   missing: string;
   replacement: string;
   similarity: number;
+}
+
+// --- Filter types ---
+
+export interface FilterState {
+  dietary: DietaryTag[];
+  difficulty: ("easy" | "medium" | "hard")[];
+  maxTime: number | null;       // max total time in minutes, null = no limit
+  cuisine: string[];
+}
+
+export const DEFAULT_FILTERS: FilterState = {
+  dietary: [],
+  difficulty: [],
+  maxTime: null,
+  cuisine: [],
+};
+
+// --- User feedback types ---
+
+export interface UserRating {
+  recipeId: string;
+  rating: number;     // 1-5 stars
+  timestamp: number;
+}
+
+export interface SavedRecipe {
+  recipeId: string;
+  savedAt: number;
 }

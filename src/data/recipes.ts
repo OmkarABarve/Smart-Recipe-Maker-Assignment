@@ -29,6 +29,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Italian",
     tags: ["vegetarian", "classic"],
+    dietaryTags: ["vegetarian"],
+    nutrition: { calories: 540, protein: 22, carbs: 58, fat: 24, fiber: 3 },
   },
   {
     id: "spaghetti-carbonara",
@@ -58,6 +60,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Italian",
     tags: ["classic", "quick"],
+    dietaryTags: ["high-protein"],
+    nutrition: { calories: 620, protein: 28, carbs: 65, fat: 26, fiber: 2 },
   },
   {
     id: "caprese-salad",
@@ -85,6 +89,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Italian",
     tags: ["vegetarian", "no-cook", "quick", "salad"],
+    dietaryTags: ["vegetarian", "gluten-free", "low-carb"],
+    nutrition: { calories: 220, protein: 14, carbs: 6, fat: 16, fiber: 1 },
   },
   {
     id: "penne-arrabbiata",
@@ -114,6 +120,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Italian",
     tags: ["vegan", "spicy", "quick"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free"],
+    nutrition: { calories: 410, protein: 12, carbs: 72, fat: 10, fiber: 4 },
   },
   {
     id: "mushroom-risotto",
@@ -146,6 +154,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Italian",
     tags: ["vegetarian", "comfort-food"],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    nutrition: { calories: 420, protein: 14, carbs: 58, fat: 14, fiber: 2 },
   },
   {
     id: "bruschetta",
@@ -173,6 +183,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Italian",
     tags: ["vegetarian", "appetizer", "quick"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free"],
+    nutrition: { calories: 180, protein: 4, carbs: 24, fat: 8, fiber: 2 },
   },
 
   // ── Mexican ──────────────────────────────────────────────
@@ -206,6 +218,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mexican",
     tags: ["quick", "high-protein"],
+    dietaryTags: ["dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 380, protein: 34, carbs: 30, fat: 14, fiber: 4 },
   },
   {
     id: "guacamole",
@@ -233,6 +247,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mexican",
     tags: ["vegan", "no-cook", "quick", "dip"],
+    dietaryTags: ["vegan", "gluten-free", "dairy-free", "nut-free"],
+    nutrition: { calories: 240, protein: 3, carbs: 13, fat: 22, fiber: 10 },
   },
   {
     id: "black-bean-quesadilla",
@@ -261,6 +277,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mexican",
     tags: ["vegetarian", "quick"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 420, protein: 20, carbs: 46, fat: 18, fiber: 8 },
   },
   {
     id: "beef-burrito-bowl",
@@ -291,6 +309,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mexican",
     tags: ["high-protein", "meal-prep"],
+    dietaryTags: ["gluten-free", "high-protein"],
+    nutrition: { calories: 520, protein: 32, carbs: 42, fat: 24, fiber: 7 },
   },
 
   // ── Asian ────────────────────────────────────────────────
@@ -323,6 +343,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Asian",
     tags: ["quick", "high-protein", "healthy"],
+    dietaryTags: ["dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 280, protein: 32, carbs: 12, fat: 12, fiber: 3 },
   },
   {
     id: "vegetable-fried-rice",
@@ -353,6 +375,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Asian",
     tags: ["vegetarian", "quick", "meal-prep"],
+    dietaryTags: ["vegetarian", "dairy-free", "nut-free"],
+    nutrition: { calories: 320, protein: 12, carbs: 48, fat: 10, fiber: 3 },
   },
   {
     id: "beef-ramen",
@@ -385,6 +409,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Asian",
     tags: ["comfort-food", "soup"],
+    dietaryTags: ["dairy-free", "high-protein"],
+    nutrition: { calories: 480, protein: 28, carbs: 52, fat: 18, fiber: 3 },
   },
   {
     id: "pad-thai",
@@ -418,6 +444,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Asian",
     tags: ["seafood", "classic"],
+    dietaryTags: ["dairy-free", "gluten-free"],
+    nutrition: { calories: 440, protein: 28, carbs: 52, fat: 14, fiber: 2 },
   },
   {
     id: "teriyaki-salmon",
@@ -447,6 +475,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Asian",
     tags: ["seafood", "healthy", "quick"],
+    dietaryTags: ["dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 350, protein: 36, carbs: 14, fat: 16, fiber: 0 },
   },
   {
     id: "miso-soup",
@@ -474,6 +504,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Asian",
     tags: ["vegan", "soup", "quick", "healthy"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free", "low-carb"],
+    nutrition: { calories: 85, protein: 6, carbs: 8, fat: 3, fiber: 2 },
   },
 
   // ── Indian ───────────────────────────────────────────────
@@ -510,6 +542,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Indian",
     tags: ["classic", "comfort-food"],
+    dietaryTags: ["gluten-free", "nut-free", "high-protein"],
+    nutrition: { calories: 420, protein: 38, carbs: 14, fat: 24, fiber: 3 },
   },
   {
     id: "chana-masala",
@@ -542,6 +576,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Indian",
     tags: ["vegan", "healthy", "meal-prep"],
+    dietaryTags: ["vegan", "gluten-free", "dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 310, protein: 14, carbs: 46, fat: 8, fiber: 12 },
   },
   {
     id: "dal-tadka",
@@ -574,6 +610,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Indian",
     tags: ["vegetarian", "healthy", "comfort-food"],
+    dietaryTags: ["vegetarian", "gluten-free", "nut-free", "high-protein"],
+    nutrition: { calories: 280, protein: 16, carbs: 38, fat: 8, fiber: 10 },
   },
   {
     id: "palak-paneer",
@@ -606,6 +644,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Indian",
     tags: ["vegetarian", "healthy"],
+    dietaryTags: ["vegetarian", "gluten-free", "nut-free"],
+    nutrition: { calories: 320, protein: 18, carbs: 10, fat: 24, fiber: 4 },
   },
 
   // ── American / Comfort ───────────────────────────────────
@@ -640,6 +680,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["classic", "quick", "high-protein"],
+    dietaryTags: ["nut-free", "high-protein"],
+    nutrition: { calories: 550, protein: 34, carbs: 32, fat: 32, fiber: 2 },
   },
   {
     id: "mac-and-cheese",
@@ -671,6 +713,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["vegetarian", "comfort-food", "classic"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 480, protein: 20, carbs: 52, fat: 22, fiber: 2 },
   },
   {
     id: "blt-sandwich",
@@ -699,6 +743,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["quick", "classic", "sandwich"],
+    dietaryTags: ["dairy-free", "nut-free"],
+    nutrition: { calories: 380, protein: 16, carbs: 28, fat: 24, fiber: 2 },
   },
   {
     id: "chicken-caesar-salad",
@@ -729,6 +775,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["salad", "high-protein", "healthy"],
+    dietaryTags: ["nut-free", "high-protein"],
+    nutrition: { calories: 360, protein: 30, carbs: 14, fat: 22, fiber: 3 },
   },
   {
     id: "pancakes",
@@ -760,6 +808,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["breakfast", "vegetarian", "classic"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 310, protein: 8, carbs: 42, fat: 12, fiber: 1 },
   },
 
   // ── Mediterranean ────────────────────────────────────────
@@ -791,6 +841,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mediterranean",
     tags: ["vegetarian", "salad", "no-cook", "healthy"],
+    dietaryTags: ["vegetarian", "gluten-free", "nut-free", "low-carb"],
+    nutrition: { calories: 200, protein: 6, carbs: 10, fat: 16, fiber: 3 },
   },
   {
     id: "hummus",
@@ -819,6 +871,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mediterranean",
     tags: ["vegan", "dip", "no-cook", "healthy"],
+    dietaryTags: ["vegan", "gluten-free", "dairy-free"],
+    nutrition: { calories: 180, protein: 6, carbs: 18, fat: 10, fiber: 4 },
   },
   {
     id: "falafel",
@@ -851,6 +905,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Mediterranean",
     tags: ["vegan", "classic"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free"],
+    nutrition: { calories: 340, protein: 14, carbs: 42, fat: 14, fiber: 8 },
   },
   {
     id: "shakshuka",
@@ -885,6 +941,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Mediterranean",
     tags: ["vegetarian", "breakfast", "one-pan"],
+    dietaryTags: ["vegetarian", "gluten-free", "nut-free"],
+    nutrition: { calories: 310, protein: 18, carbs: 18, fat: 18, fiber: 5 },
   },
 
   // ── French ───────────────────────────────────────────────
@@ -918,6 +976,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "French",
     tags: ["soup", "comfort-food", "classic"],
+    dietaryTags: ["nut-free"],
+    nutrition: { calories: 380, protein: 18, carbs: 30, fat: 20, fiber: 3 },
   },
   {
     id: "quiche-lorraine",
@@ -949,6 +1009,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "French",
     tags: ["breakfast", "classic"],
+    dietaryTags: ["nut-free"],
+    nutrition: { calories: 420, protein: 16, carbs: 22, fat: 30, fiber: 1 },
   },
   {
     id: "crepes",
@@ -977,6 +1039,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "French",
     tags: ["breakfast", "vegetarian", "classic"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 140, protein: 4, carbs: 18, fat: 6, fiber: 0 },
   },
   {
     id: "ratatouille",
@@ -1010,6 +1074,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "French",
     tags: ["vegan", "healthy", "classic"],
+    dietaryTags: ["vegan", "gluten-free", "dairy-free", "nut-free", "low-carb"],
+    nutrition: { calories: 160, protein: 4, carbs: 18, fat: 10, fiber: 6 },
   },
 
   // ── Thai / Southeast Asian ───────────────────────────────
@@ -1042,6 +1108,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Thai",
     tags: ["spicy", "quick"],
+    dietaryTags: ["gluten-free", "dairy-free", "nut-free"],
+    nutrition: { calories: 380, protein: 28, carbs: 12, fat: 26, fiber: 2 },
   },
   {
     id: "tom-yum-soup",
@@ -1073,6 +1141,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Thai",
     tags: ["soup", "seafood", "spicy", "quick"],
+    dietaryTags: ["gluten-free", "dairy-free", "nut-free", "low-carb"],
+    nutrition: { calories: 160, protein: 20, carbs: 8, fat: 6, fiber: 1 },
   },
   {
     id: "thai-peanut-noodles",
@@ -1105,6 +1175,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Thai",
     tags: ["vegan", "quick", "no-cook"],
+    dietaryTags: ["vegan", "dairy-free", "gluten-free"],
+    nutrition: { calories: 380, protein: 12, carbs: 52, fat: 14, fiber: 3 },
   },
 
   // ── Middle Eastern ───────────────────────────────────────
@@ -1139,6 +1211,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Middle Eastern",
     tags: ["high-protein", "meal-prep"],
+    dietaryTags: ["nut-free", "high-protein"],
+    nutrition: { calories: 340, protein: 32, carbs: 8, fat: 20, fiber: 1 },
   },
   {
     id: "tabbouleh",
@@ -1168,6 +1242,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Middle Eastern",
     tags: ["vegan", "salad", "healthy"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free"],
+    nutrition: { calories: 180, protein: 4, carbs: 26, fat: 8, fiber: 5 },
   },
 
   // ── Japanese ─────────────────────────────────────────────
@@ -1203,6 +1279,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Japanese",
     tags: ["comfort-food", "classic"],
+    dietaryTags: ["dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 520, protein: 36, carbs: 48, fat: 20, fiber: 4 },
   },
   {
     id: "edamame-salad",
@@ -1233,6 +1311,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Japanese",
     tags: ["vegan", "salad", "quick", "healthy"],
+    dietaryTags: ["vegan", "dairy-free", "gluten-free", "high-protein"],
+    nutrition: { calories: 220, protein: 12, carbs: 14, fat: 14, fiber: 6 },
   },
 
   // ── Korean ───────────────────────────────────────────────
@@ -1268,6 +1348,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Korean",
     tags: ["classic", "high-protein"],
+    dietaryTags: ["dairy-free", "nut-free", "high-protein"],
+    nutrition: { calories: 480, protein: 26, carbs: 52, fat: 18, fiber: 4 },
   },
 
   // ── Spanish ──────────────────────────────────────────────
@@ -1297,6 +1379,8 @@ export const recipes: Recipe[] = [
     difficulty: "medium",
     cuisine: "Spanish",
     tags: ["vegetarian", "classic", "tapa"],
+    dietaryTags: ["vegetarian", "gluten-free", "dairy-free", "nut-free"],
+    nutrition: { calories: 260, protein: 10, carbs: 22, fat: 16, fiber: 2 },
   },
   {
     id: "gazpacho",
@@ -1325,6 +1409,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Spanish",
     tags: ["vegan", "soup", "no-cook", "healthy"],
+    dietaryTags: ["vegan", "dairy-free", "nut-free", "low-carb"],
+    nutrition: { calories: 140, protein: 3, carbs: 14, fat: 10, fiber: 3 },
   },
 
   // ── Quick / Simple ───────────────────────────────────────
@@ -1354,6 +1440,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Modern",
     tags: ["breakfast", "quick", "vegetarian", "healthy"],
+    dietaryTags: ["vegetarian", "dairy-free", "nut-free"],
+    nutrition: { calories: 320, protein: 12, carbs: 26, fat: 20, fiber: 7 },
   },
   {
     id: "overnight-oats",
@@ -1382,6 +1470,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Modern",
     tags: ["breakfast", "no-cook", "healthy", "meal-prep", "vegetarian"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 310, protein: 12, carbs: 52, fat: 6, fiber: 6 },
   },
   {
     id: "grilled-cheese-tomato-soup",
@@ -1413,6 +1503,8 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "American",
     tags: ["vegetarian", "comfort-food", "quick"],
+    dietaryTags: ["vegetarian", "nut-free"],
+    nutrition: { calories: 440, protein: 16, carbs: 36, fat: 28, fiber: 3 },
   },
   {
     id: "banana-smoothie",
@@ -1440,12 +1532,13 @@ export const recipes: Recipe[] = [
     difficulty: "easy",
     cuisine: "Modern",
     tags: ["breakfast", "no-cook", "quick", "healthy", "vegetarian"],
+    dietaryTags: ["vegetarian", "gluten-free"],
+    nutrition: { calories: 280, protein: 10, carbs: 42, fat: 10, fiber: 4 },
   },
 ];
 
 /**
  * Returns a deduplicated, sorted list of all ingredient names used across all recipes.
- * Useful for autocomplete suggestions.
  */
 export function getAllIngredientNames(): string[] {
   const nameSet = new Set<string>();
@@ -1455,4 +1548,15 @@ export function getAllIngredientNames(): string[] {
     }
   }
   return Array.from(nameSet).sort();
+}
+
+/**
+ * Returns a sorted list of all unique cuisine values.
+ */
+export function getAllCuisines(): string[] {
+  const set = new Set<string>();
+  for (const recipe of recipes) {
+    set.add(recipe.cuisine);
+  }
+  return Array.from(set).sort();
 }

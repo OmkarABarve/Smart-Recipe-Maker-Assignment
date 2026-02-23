@@ -1,4 +1,4 @@
-import { Recipe, RecipeMatch, Substitution } from "@/types";
+import { Recipe, RecipeMatch, Substitution, FilterState } from "@/types";
 import { recipes } from "@/data/recipes";
 import { normalize } from "./normalize";
 import { findSubstitution } from "./substitutions";
@@ -9,17 +9,13 @@ import {
 } from "./constants";
 
 /**
- * Score and rank all recipes against the user's available ingredients.
- *
- * Scoring formula:
- *   baseScore = (matchedCount / requiredCount) * 100
- *   substitutionBonus = sum(sub.similarity * SUBSTITUTION_WEIGHT) / requiredCount * 100
- *   finalScore = clamp(baseScore + substitutionBonus, 0, 100)
- *
- * @param userIngredients - Raw ingredient strings from the user input
- * @returns Sorted array of RecipeMatch (highest score first), filtered above MIN_SCORE_THRESHOLD
+ * Score and rank all recipes against the user's available ingredients,
+ * applying optional filters.
  */
-export function matchRecipes(userIngredients: string[]): RecipeMatch[] {
+export function matchRecipes(
+  userIngredients: string[],
+  filters?: FilterState
+): RecipeMatch[] {
   // Normalize user ingredients once
   const normalizedUser = userIngredients.map(normalize);
   const userSet = new Set(normalizedUser);
@@ -29,6 +25,9 @@ export function matchRecipes(userIngredients: string[]): RecipeMatch[] {
   const results: RecipeMatch[] = [];
 
   for (const recipe of recipes) {
+    // Apply filters before scoring (cheaper)
+    if (filters && !passesFilters(recipe, filters)) continue;
+
     const result = scoreRecipe(recipe, normalizedUser, userSet);
     if (result.score >= MIN_SCORE_THRESHOLD) {
       results.push(result);
@@ -42,6 +41,41 @@ export function matchRecipes(userIngredients: string[]): RecipeMatch[] {
   });
 
   return results.slice(0, MAX_RESULTS);
+}
+
+/**
+ * Check if a recipe passes the given filters.
+ */
+function passesFilters(recipe: Recipe, filters: FilterState): boolean {
+  // Dietary: recipe must have ALL selected dietary tags
+  if (filters.dietary.length > 0) {
+    if (!filters.dietary.every((tag) => recipe.dietaryTags.includes(tag))) {
+      return false;
+    }
+  }
+
+  // Difficulty
+  if (filters.difficulty.length > 0) {
+    if (!filters.difficulty.includes(recipe.difficulty)) {
+      return false;
+    }
+  }
+
+  // Max cooking time
+  if (filters.maxTime !== null) {
+    if (recipe.prepTime + recipe.cookTime > filters.maxTime) {
+      return false;
+    }
+  }
+
+  // Cuisine
+  if (filters.cuisine.length > 0) {
+    if (!filters.cuisine.includes(recipe.cuisine)) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -115,4 +149,12 @@ function scoreRecipe(
  */
 export function getRecipeById(id: string): Recipe | undefined {
   return recipes.find((r) => r.id === id);
+}
+
+/**
+ * Get all recipes optionally filtered, useful for browsing/suggestions.
+ */
+export function getFilteredRecipes(filters?: FilterState): Recipe[] {
+  if (!filters) return recipes;
+  return recipes.filter((r) => passesFilters(r, filters));
 }

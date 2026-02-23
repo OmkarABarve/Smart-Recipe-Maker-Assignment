@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { RecipeMatch } from "@/types";
 import MatchScoreBadge from "./MatchScoreBadge";
@@ -12,6 +14,7 @@ export default function RecipeCard({ match }: RecipeCardProps) {
     match;
 
   const totalTime = recipe.prepTime + recipe.cookTime;
+  const { calories, protein } = recipe.nutrition;
 
   return (
     <Link
@@ -54,9 +57,27 @@ export default function RecipeCard({ match }: RecipeCardProps) {
           <MatchScoreBadge score={score} size="md" />
         </div>
 
-        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
+        <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
           {recipe.description}
         </p>
+
+        {/* Nutrition quick view */}
+        <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400 mb-3">
+          <span className="inline-flex items-center gap-1">
+            <span className="font-semibold text-orange-500">{calories}</span> kcal
+          </span>
+          <span className="inline-flex items-center gap-1">
+            <span className="font-semibold text-blue-500">{protein}g</span> protein
+          </span>
+          {recipe.dietaryTags.slice(0, 2).map((tag) => (
+            <span
+              key={tag}
+              className="px-1.5 py-0.5 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-300 rounded text-xs"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
 
         {/* Matched ingredients */}
         {matchedIngredients.length > 0 && (

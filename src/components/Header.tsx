@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function Header() {
+interface HeaderProps {
+  savedCount?: number;
+}
+
+export default function Header({ savedCount }: HeaderProps) {
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
@@ -36,7 +40,21 @@ export default function Header() {
             Smart Recipe Generator
           </span>
         </Link>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-2">
+          <Link
+            href="/favorites"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+            <span className="hidden sm:inline">Favorites</span>
+            {savedCount !== undefined && savedCount > 0 && (
+              <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-300 rounded-full text-xs font-bold">
+                {savedCount}
+              </span>
+            )}
+          </Link>
           <button
             onClick={toggleDark}
             className="p-2 rounded-lg text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
